@@ -44,7 +44,7 @@ pnpm-debug.log*
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
+**/next-env.d.ts
 
 # documentation — repo stays clean of .md clutter
 # only README.md (any folder) and wikis/** are committed
