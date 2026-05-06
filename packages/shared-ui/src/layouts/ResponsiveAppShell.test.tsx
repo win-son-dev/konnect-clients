@@ -14,9 +14,9 @@ const navigationLinks: NavigationLink[] = [
   { href: '/dashboard/job-postings', label: 'Job postings', icon: <svg data-testid="icon-jobs" /> },
 ];
 
-function renderShell() {
+function renderShell(extraProps: Partial<Parameters<typeof ResponsiveAppShell>[0]> = {}) {
   return render(
-    <ResponsiveAppShell roleLabel="Recruiters" navigationLinks={navigationLinks}>
+    <ResponsiveAppShell roleLabel="Recruiters" navigationLinks={navigationLinks} {...extraProps}>
       <p>Page body</p>
     </ResponsiveAppShell>,
   );
@@ -62,5 +62,31 @@ describe('ResponsiveAppShell', () => {
 
     const brandLink = screen.getByRole('link', { name: /Konnect/ });
     expect(brandLink).toHaveAttribute('href', '/dashboard');
+  });
+
+  it('omits the user menu when no authenticated user is provided', () => {
+    renderShell();
+
+    expect(screen.queryByRole('link', { name: 'Sign out' })).toBeNull();
+    expect(screen.queryByText(/Hi, /)).toBeNull();
+  });
+
+  it('renders the user greeting and sign-out link when authenticated', () => {
+    renderShell({
+      user: { name: 'Ada Lovelace', email: 'ada@example.com' },
+      signOutHref: '/auth/logout',
+    });
+
+    expect(screen.getByText('Hi, Ada Lovelace')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Sign out' })).toHaveAttribute(
+      'href',
+      '/auth/logout',
+    );
+  });
+
+  it('omits the user menu when user is provided but signOutHref is missing', () => {
+    renderShell({ user: { name: 'Ada Lovelace' } });
+
+    expect(screen.queryByRole('link', { name: 'Sign out' })).toBeNull();
   });
 });

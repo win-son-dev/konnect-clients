@@ -1,0 +1,9 @@
+# Never index secrets — keep AI tools out of env files.
+# Templates (.env.example) stay readable so contributors know the shape.
+.env
+.env.local
+.env.local.*
+.env.development
+.env.development.*
+.env.production
+.env.production.*

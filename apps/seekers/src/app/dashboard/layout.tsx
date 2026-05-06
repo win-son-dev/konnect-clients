@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
-import { ResponsiveAppShell } from '@konnect/shared-ui';
+import { ResponsiveAppShell, type AuthenticatedUser } from '@konnect/shared-ui';
+import { auth0 } from '@/lib/auth0';
 
 const seekerNavigationLinks = [
   { href: '/dashboard', label: 'Home', icon: <HomeIcon /> },
@@ -8,9 +9,22 @@ const seekerNavigationLinks = [
   { href: '/dashboard/resume', label: 'Resume', icon: <DocumentIcon /> },
 ];
 
-export default function SeekersDashboardLayout({ children }: { children: ReactNode }) {
+export default async function SeekersDashboardLayout({ children }: { children: ReactNode }) {
+  const session = await auth0.getSession();
+  const user: AuthenticatedUser | undefined = session?.user
+    ? {
+        name: session.user.name ?? session.user.email ?? 'You',
+        email: session.user.email ?? undefined,
+      }
+    : undefined;
+
   return (
-    <ResponsiveAppShell roleLabel="Seekers" navigationLinks={seekerNavigationLinks}>
+    <ResponsiveAppShell
+      roleLabel="Seekers"
+      navigationLinks={seekerNavigationLinks}
+      user={user}
+      signOutHref="/auth/logout"
+    >
       {children}
     </ResponsiveAppShell>
   );

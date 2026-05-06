@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^4.20.0",
     "@konnect/shared-ui": "*",
     "next": "^15.1.7",
     "react": "^19.0.0",
