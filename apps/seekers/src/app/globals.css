@@ -1,0 +1,9 @@
+@import 'tailwindcss';
+
+@source '../../../../packages/shared-ui/src/**/*.{ts,tsx}';
+
+@theme {
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+}
