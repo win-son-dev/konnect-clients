@@ -4,7 +4,8 @@ Cross-app UI building blocks consumed by both `apps/recruiters` and `apps/seeker
 
 ## What lives here
 
-- `layouts/` — page-level structure shared across apps. Currently: `ResponsiveAppShell` (mobile drawer + tablet/desktop sidebar).
+- `layouts/` — page-level structure for the authenticated app. Currently: `ResponsiveAppShell` (mobile drawer + tablet/desktop sidebar).
+- `marketing/` — page-level structure for public pages. Currently: `MarketingPageHeader` (top bar with brand + sign in / get started CTAs).
 - Future: design-system primitives (Button, Input, Dialog…), typography helpers, theming.
 
 ## What does NOT live here
@@ -17,7 +18,7 @@ Cross-app UI building blocks consumed by both `apps/recruiters` and `apps/seeker
 Apps import directly from source:
 
 ```ts
-import { ResponsiveAppShell } from '@konnect/shared-ui';
+import { ResponsiveAppShell, MarketingPageHeader } from '@konnect/shared-ui';
 ```
 
 Each app's `next.config.ts` lists this package under `transpilePackages` so Next compiles the TS at build time. Each app's `globals.css` adds an `@source` line so Tailwind picks up class names from this package.

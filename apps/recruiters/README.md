@@ -7,18 +7,25 @@ The recruiter-facing Next.js app. Companies post roles, review applicants, and m
 ```
 apps/recruiters/
 ├── src/
-│   ├── app/                # Next.js App Router (routing only — keep thin)
-│   │   ├── layout.tsx
+│   ├── app/                            # Next.js App Router (routing only — keep thin)
+│   │   ├── layout.tsx                  # root html/body, no shell
 │   │   ├── globals.css
-│   │   ├── page.tsx                  # /
-│   │   ├── job-postings/page.tsx     # /job-postings
-│   │   ├── applications/page.tsx     # /applications
-│   │   └── company-profile/page.tsx  # /company-profile
-│   └── features/           # feature folders (one per recruiter capability)
+│   │   ├── (marketing)/                # public pages — wrapped in MarketingPageHeader
+│   │   │   ├── layout.tsx
+│   │   │   ├── page.tsx                # / — landing
+│   │   │   ├── sign-in/page.tsx        # /sign-in (placeholder until Phase 1b)
+│   │   │   └── sign-up/page.tsx        # /sign-up (placeholder until Phase 1b)
+│   │   └── dashboard/                  # authenticated app — wrapped in ResponsiveAppShell
+│   │       ├── layout.tsx
+│   │       ├── page.tsx                          # /dashboard
+│   │       ├── job-postings/page.tsx             # /dashboard/job-postings
+│   │       ├── applications/page.tsx             # /dashboard/applications
+│   │       └── company-profile/page.tsx          # /dashboard/company-profile
+│   └── features/                       # feature folders (one per recruiter capability)
 └── ...
 ```
 
-`app/` files stay thin — they wire routes to feature components. Real logic lives in `src/features/<feature-name>/` (components, hooks, API calls, types) so each feature is self-contained.
+`app/` files stay thin — they wire routes to feature components. Real logic lives in `src/features/<feature-name>/`.
 
 ## Run
 
