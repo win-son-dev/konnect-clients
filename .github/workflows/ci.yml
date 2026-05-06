@@ -38,4 +38,12 @@ jobs:
         run: npm run test
 
       - name: Build
+        # Auth0Client warns if env vars are missing during build; CI provides
+        # placeholders so logs stay clean. No real Auth0 calls happen at build time.
+        env:
+          AUTH0_DOMAIN: example.us.auth0.com
+          AUTH0_CLIENT_ID: ci-placeholder-client-id
+          AUTH0_CLIENT_SECRET: ci-placeholder-client-secret-thirty-two-chars
+          AUTH0_SECRET: ci-placeholder-secret-thirty-two-characters-long
+          APP_BASE_URL: http://localhost:3000
         run: npm run build

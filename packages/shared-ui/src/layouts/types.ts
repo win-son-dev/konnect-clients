@@ -5,3 +5,8 @@ export type NavigationLink = {
   label: string;
   icon?: ReactNode;
 };
+
+export type AuthenticatedUser = {
+  name: string;
+  email?: string;
+};

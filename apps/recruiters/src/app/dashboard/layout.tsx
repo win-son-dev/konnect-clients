@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
-import { ResponsiveAppShell } from '@konnect/shared-ui';
+import { ResponsiveAppShell, type AuthenticatedUser } from '@konnect/shared-ui';
+import { auth0 } from '@/lib/auth0';
 
 const recruiterNavigationLinks = [
   { href: '/dashboard', label: 'Dashboard', icon: <DashboardIcon /> },
@@ -8,9 +9,22 @@ const recruiterNavigationLinks = [
   { href: '/dashboard/company-profile', label: 'Company', icon: <BuildingIcon /> },
 ];
 
-export default function RecruitersDashboardLayout({ children }: { children: ReactNode }) {
+export default async function RecruitersDashboardLayout({ children }: { children: ReactNode }) {
+  const session = await auth0.getSession();
+  const user: AuthenticatedUser | undefined = session?.user
+    ? {
+        name: session.user.name ?? session.user.email ?? 'You',
+        email: session.user.email ?? undefined,
+      }
+    : undefined;
+
   return (
-    <ResponsiveAppShell roleLabel="Recruiters" navigationLinks={recruiterNavigationLinks}>
+    <ResponsiveAppShell
+      roleLabel="Recruiters"
+      navigationLinks={recruiterNavigationLinks}
+      user={user}
+      signOutHref="/auth/logout"
+    >
       {children}
     </ResponsiveAppShell>
   );
