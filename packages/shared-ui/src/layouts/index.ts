@@ -1,4 +1,4 @@
 export { ResponsiveAppShell } from './ResponsiveAppShell';
-export { SidebarNavigation } from './SidebarNavigation';
-export { MobileNavigationDrawer } from './MobileNavigationDrawer';
+export { TopNavigationBar } from './TopNavigationBar';
+export { BottomNavigationBar } from './BottomNavigationBar';
 export type { NavigationLink } from './types';
